@@ -3,7 +3,7 @@ package main
 import  (
     "fmt"
     "sort"
-    S "./mySorts"
+    "sorts/mySorts"
 )
 
 func main() {
@@ -12,27 +12,42 @@ func main() {
     testArrays := [][]int{
         {9,5,3,5,1,7},
         {8,5,2,25,6,3,7,3,4,6},
+        {7,4,3,-14,0,8,-1,0,-3,-2,1},
         {1},
         {2,1},
         {},
+        {8,5,2,25,6,3,7,3,4,6,4,7,2,2,3,24,4,8,5,9},
         {1,2,3,4,5}, /* Note the coma */
         } // Composite literals
 
-    fmt.Println("Amount of testcases: ", len(testArrays))
+    failedTestcases := []int{}
+
+    fmt.Println("Amount of testcases: ", len(testArrays), "\n")
 
     for i, expectation, succes := 0, []int{}, ""; i < len(testArrays); i++ {
+        succes = ""
         expectation = testArrays[i]
         sort.Sort(sort.IntSlice(testArrays[i]))
         fmt.Println("Testcase Nº", i, "\nArray Nº", i+1, "before sorting:\n", testArrays[i])
-        S.BubbleSort(testArrays[i])
+        mySorts.BubbleSort(testArrays[i])
         fmt.Println("Array Nº", i+1, "after sorting:\n", testArrays[i])
         fmt.Println("Expected:", expectation)
-        if !areSlicesEqual(expectation, testArrays[i]) {succes = "not"}
+        if !areSlicesEqual(expectation, testArrays[i]) {
+            succes = "not"
+            failedTestcases = append(failedTestcases, i)
+        }
         fmt.Println("Testcase has", succes, "been passed")
         fmt.Printf("\n\n")
     }
-}
 
+    if len(failedTestcases) == 0 {
+        fmt.Printf("%sPassed all testcases%s\n", "\033[32m", "\033[0m")
+    } else {
+        fmt.Printf("%sFailed testcases\n%v%s\n", "\033[31m", failedTestcases, "\033[0m")
+
+    }
+
+}
 
 func areSlicesEqual(arr1, arr2 []int) bool {
     if len(arr1) != len(arr2) { return false }
@@ -43,3 +58,4 @@ func areSlicesEqual(arr1, arr2 []int) bool {
     }
     return true
 }
+
