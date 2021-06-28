@@ -48,7 +48,7 @@ func testing(srtFnc func([]int)) {
     for i, expectation, succes := 0, []int{}, ""; i < len(testArrays); i++ {
         succes = ""
         expectation = testArrays[i]
-        sort.Sort(sort.IntSlice(testArrays[i]))
+        sort.Sort(sort.IntSlice(expectation))
         fmt.Println("Testcase Nº", i, "\nArray Nº", i+1, "before sorting:\n", testArrays[i])
         srtFnc(testArrays[i])
         fmt.Println("Array Nº", i+1, "after sorting:\n", testArrays[i])
@@ -60,7 +60,7 @@ func testing(srtFnc func([]int)) {
         fmt.Println("Testcase has", succes, "been passed")
         fmt.Printf("\n\n")
     }
-    
+
     // if len(failedTestcases) == 0 {
     if failedTestcases == nil {
         fmt.Printf("%sPassed all testcases%s\n", "\033[32m", "\033[0m")
