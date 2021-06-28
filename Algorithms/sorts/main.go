@@ -20,7 +20,7 @@ func main() {
         {1,2,3,4,5}, /* Note the coma */
         } // Composite literals
 
-    failedTestcases := []int{}
+    failedTestcases := []int
 
     fmt.Println("Amount of testcases: ", len(testArrays), "\n")
 
@@ -40,7 +40,8 @@ func main() {
         fmt.Printf("\n\n")
     }
 
-    if len(failedTestcases) == 0 {
+    // if len(failedTestcases) == 0 {
+    if failedTestcases == nil {
         fmt.Printf("%sPassed all testcases%s\n", "\033[32m", "\033[0m")
     } else {
         fmt.Printf("%sFailed testcases\n%v%s\n", "\033[31m", failedTestcases, "\033[0m")
@@ -51,11 +52,10 @@ func main() {
 
 func areSlicesEqual(arr1, arr2 []int) bool {
     if len(arr1) != len(arr2) { return false }
-    for i := range arr1 {
+    for i, _ := range arr1 {
         if arr1[i] != arr2[i] {
             return false
         }
     }
     return true
 }
-
